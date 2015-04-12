@@ -17,7 +17,7 @@ window.inputs = {}
 window.gageidx = 1
 window.polling = false
 
-c = new WebSocket "ws://localhost:8080/ws"
+c = new WebSocket "ws://10.0.1.23:8080/ws"
 c.onmessage = (e) ->
     data = JSON.parse e.data
     if 'name' of data
@@ -38,7 +38,7 @@ c.onmessage = (e) ->
                 window.gages[my_id] = makeGage(window.gageidx,
                     widget.Value, widget.Min, widget.Max, widget.Label)
                 window.gageidx += 1
-                if window.gageidx > 6
+                if window.gageidx > 7
                     c.close()
                     console.log "too many things"
             else
