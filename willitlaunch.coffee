@@ -71,7 +71,7 @@ c.onmessage = (e) ->
                     $(window.inputs[my_id]).attr('data-gid', gid)
                     $(window.inputs[my_id]).attr('data-wid', wid)
                     $('#controls').append(window.inputs[my_id])
-                    $(window.inputs[my_id]).change (e) ->
+                    $(window.inputs[my_id]).on 'input', (e) ->
                         gid = parseInt $(this).attr('data-gid')
                         wid = parseInt $(this).attr('data-wid')
                         msg = {Gid: gid, Wid: wid, Value: parseInt($(this).val())}
@@ -101,13 +101,18 @@ c.onmessage = (e) ->
                     #}
     if 'Status' of data
         if data.Status == "FAILED"
+            $('#failure').get(0).play()
             alert 'Game Over'
         else if data.Status == "SUCCESS"
+            $('#liftoff').get(0).play()
             alert 'You Win'
         else if data.Status == "POLL"
             $('#overlay').fadeIn()
             window.polling = true
+            $('#needago').get(0).play()
         else if data.Status == "POLLCONT"
+            who = data.ControllerName.split(" ")[0]
+            $("##{who}").get(0).play()
             $('#pollcont').text data.ControllerName
         else if data.Status == "NOPOLL"
             $('#overlay').fadeOut()
@@ -119,12 +124,15 @@ $(document).keydown (e) ->
     if e.keyCode == 37
         window.polling = false
         console.log "NO GO"
+        $('#nogo').get(0).play()
         window.ws.send '{"Gid": 99, "Wid": 100, "Value": false}'
         $('.votetext').fadeOut()
     else if e.keyCode == 39
         window.polling = false
         console.log "GO"
+        n = Math.floor(Math.random() * 3 + 1)
         window.ws.send '{"Gid": 99, "Wid": 100, "Value": true}'
+        $("#go#{n}").get(0).play()
         $('.votetext').fadeOut()
 
 window.ws = c
