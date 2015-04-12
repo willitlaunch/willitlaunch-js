@@ -1,0 +1,157 @@
+<!doctype html>
+<title>Will It Launch</title>
+<link rel=stylesheet href="/bootstrap.min.css">
+<script src="/jquery.min.js"></script>
+<script src="/coffee-script.js"></script>
+<script src="/raphael.2.1.0.min.js"></script>
+<script src="/justgage.1.0.1.min.js"></script>
+<!--<script src="/jquery.knob.js"></script>-->
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #aaa;
+}
+#container {
+  padding-top: 5px;
+}
+#timer {
+  font-size: 4em;
+  background-color: black;
+  color: #00ff00;
+  text-align: center;
+  font-weight: bold;
+  font-family: monospace;
+  padding: 20px;
+  border-radius: 5px;
+}
+#checklist {
+  font-size: 1.2em;
+  background-color: #f1f1d4;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+}
+#name {
+  font-size: 4em;
+  background-color: #292e37;
+  border-radius: 10px;
+  border: 5px solid #536267;
+  color: #eee;
+  padding 10px;
+  font-weight: bold;
+  text-align: center;
+}
+#instruments {
+  background-color: #292e37;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 5px solid #536267;
+  padding: 15px;
+}
+#controls {
+  background-color: #292e37;
+  border-radius: 10px;
+  border: 5px solid #536267;
+  padding: 5px;
+  margin-top: 20px;
+}
+#controls button {
+  padding: 5px 20px 5px 20px;
+  margin: 5px 10px 5px 2px;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: monospace;
+  background-color: #888;
+}
+.instrument {
+  height: 150px;
+  width: 250px;
+}
+.control {
+  height: 60px;
+  width: 80px;
+}
+#overlay {
+  display: none;
+  opacity: 0.9;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+}
+#pollcont {
+  font-size: 5em;
+  background-color: #292e37;
+  border-radius: 10px;
+  border: 5px solid #536267;
+  color: #eee;
+  padding 50px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15%;
+}
+.votetext {
+  font-size: 4em;
+  font-color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.voteno {
+  color: #f55;
+}
+.votego {
+  color: #5f5;
+}
+#controls input[type=range] {
+  display: inline-block
+}
+</style>
+<div class=container id=overlay>
+  <div class=row>
+    <div class="col-xs-8 col-xs-offset-2" id=pollcont>
+      <em>waiting...</em>
+    </div>
+  </div><div class=row>
+    <div class="col-xs-3 col-xs-offset-2 votetext voteno">
+      &larr; NO GO
+    </div>
+    <div class="col-xs-3 col-xs-offset-2 votetext votego">
+      GO &rarr;
+    </div>
+  </div>
+</div>
+<div class=container-fluid id=container>
+  <div class=row>
+    <div class=col-xs-4 id=sidebar>
+      <div id=timer>
+      </div>
+      <div id=checklist>
+      </div>
+    </div>
+    <div class=col-xs-8>
+      <div id=name>
+      </div>
+      <div id=instruments>
+        <div class=row>
+          <div class="instrument col-xs-4" id=ins1></div>
+          <div class="instrument col-xs-4" id=ins2></div>
+          <div class="instrument col-xs-4" id=ins3></div>
+        </div>
+        <div class=row>
+          <div class="instrument col-xs-4" id=ins4></div>
+          <div class="instrument col-xs-4" id=ins5></div>
+          <div class="instrument col-xs-4" id=ins6></div>
+        </div>
+      </div>
+      <div id=controls>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/coffeescript" src="/willitlaunch.coffee"></script>
